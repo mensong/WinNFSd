@@ -105,17 +105,17 @@ static void inputCommand(void)
 		if (command[strlen(command) - 1] == '\n')
 			command[strlen(command) - 1] = '\0';
 
-		if (stricmp(command, "about") == 0)
+		if (_stricmp(command, "about") == 0)
 			printAbout();
-		else if (stricmp(command, "help") == 0)
+		else if (_stricmp(command, "help") == 0)
 			printHelp();
-		else if (stricmp(command, "log on") == 0)
+		else if (_stricmp(command, "log on") == 0)
 			g_RPCServer.SetLogOn(true);
-		else if (stricmp(command, "log off") == 0)
+		else if (_stricmp(command, "log off") == 0)
 			g_RPCServer.SetLogOn(false);
-		else if (stricmp(command, "list") == 0)
+		else if (_stricmp(command, "list") == 0)
 			printList();
-		else if (stricmp(command, "quit") == 0)
+		else if (_stricmp(command, "quit") == 0)
 		{
 			if (g_MountProg.GetMountNumber() == 0)
 				break;
@@ -127,7 +127,7 @@ static void inputCommand(void)
 					break;
 			}
 		}
-		else if (stricmp(command, "reset") == 0)
+		else if (_stricmp(command, "reset") == 0)
 			g_RPCServer.Set(PROG_NFS, NULL);
 		else if (strcmp(command, "") != 0)
 		{
@@ -226,14 +226,14 @@ int main(int argc, char *argv[])
 	g_bLogOn = true;
 	for (i = 1; i < argc - 1; i++)  //parse parameters
 	{
-		if (stricmp(argv[i], "-id") == 0)
+		if (_stricmp(argv[i], "-id") == 0)
 		{
 			g_nUID = atoi(argv[++i]);
 			g_nGID = atoi(argv[++i]);
 		}
-		else if (stricmp(argv[i], "-log") == 0)
+		else if (_stricmp(argv[i], "-log") == 0)
 		{
-			g_bLogOn = stricmp(argv[++i], "off") != 0;
+			g_bLogOn = _stricmp(argv[++i], "off") != 0;
 		}
 	}
 

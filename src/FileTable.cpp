@@ -159,7 +159,7 @@ FILE_ITEM *CFileTable::GetItemByID(unsigned int nID)
 
 void CFileTable::PutItemInCache(FILE_ITEM *pItem)
 {
-	CACHE_LIST *pPrev, *pCurr;
+	CACHE_LIST *pPrev = NULL, *pCurr;
 	int nCount;
 
 	pCurr = m_pCacheList;
@@ -173,10 +173,13 @@ void CFileTable::PutItemInCache(FILE_ITEM *pItem)
 					return;
 				else  //move to the first
 				{
-					pPrev->pNext = pCurr->pNext;
-					pCurr->pNext = m_pCacheList;
-					m_pCacheList = pCurr;
-					return;
+					if (pPrev)
+					{
+						pPrev->pNext = pCurr->pNext;
+						pCurr->pNext = m_pCacheList;
+						m_pCacheList = pCurr;
+						return;
+					}					
 				}
 			}
 			pPrev = pCurr;
@@ -206,10 +209,13 @@ void CFileTable::PutItemInCache(FILE_ITEM *pItem)
 
 bool FileExists(char *path)
 {
-	int handle;
+	intptr_t handle;
 	struct _finddata_t fileinfo;
 
 	handle = _findfirst(path, &fileinfo);
+	if (handle == -1)
+		return false;
+
 	_findclose(handle);
 	return handle == -1? false : strcmp(fileinfo.name, strrchr(path, '\\') + 1) == 0;  //filename must match case
 }

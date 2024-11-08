@@ -103,7 +103,7 @@ void CMountProg::ProcedureMNT(void)
 	path = GetPath();
 	PrintLog(" from %s", m_pParam->pRemoteAddr);
 
-	if (m_nMountNum < MOUNT_NUM_MAX && stricmp(path, m_pExportPath) == 0)  //path match
+	if (m_nMountNum < MOUNT_NUM_MAX && _stricmp(path, m_pExportPath) == 0)  //path match
 	{
 		m_pOutStream->Write(MNT_OK);  //OK
 		if (m_pParam->nVersion == 1)
